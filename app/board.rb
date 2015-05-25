@@ -16,8 +16,8 @@ module Board
     if Hash === x && y == 0
       return find(x[:x], x[:y])
     end
-    return :not_in_board if x < 1 || y < 1
-    return :not_in_board if x > SIZE || y > SIZE
+    x = transform(x)
+    y = transform(y)
     @@matrix[y][x]
   end
 
@@ -59,5 +59,15 @@ module Board
         @@matrix[y][x] = Square.new(x, y, Element.find(".square-#{x}-#{y}"))
       end
     end
+  end
+
+  def transform(val)
+    if val == 0
+      return SIZE
+    end
+    if val > SIZE
+      return val - SIZE
+    end
+    val
   end
 end

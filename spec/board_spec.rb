@@ -33,16 +33,16 @@ describe Board do
 
     context 'not in board' do
       context 'less than 1' do
-        it 'returns :not_in_board' do
+        it 'returns end of board' do
           s = Board.find(1, 0)
-          expect(s).to eq :not_in_board
+          expect(s).to eq Board.find(1, 5)
         end
       end
 
       context 'more than SIZE' do
-        it 'returns :not_in_board' do
+        it 'returns beginning of board' do
           s = Board.find(6, 2)
-          expect(s).to eq :not_in_board
+          expect(s).to eq Board.find(1, 2)
         end
       end
     end

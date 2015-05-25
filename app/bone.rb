@@ -27,10 +27,7 @@ class Bone
     check_for_changes
     @old_square = @square
     @square = Board.find(new_coords)
-    if @square == :not_in_board
-      @snake.lose!
-    elsif @head && @square.snake && @square != snake.last.square
-      # extreme case
+    if @head && @square.snake && @square != snake.last.square
       @snake.lose!
     elsif @head && @square.food
       @snake.eat!(@square)

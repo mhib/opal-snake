@@ -114,10 +114,11 @@ describe Snake do
 
     context 'lost' do
       before do
-        @b = Bone.new(@snake, Board.find(2,1), :up)
+        # yep snake not in one piece :C
+        @b = Bone.new(@snake, Board.find(1,1), :right)
         @sb = Bone.new(@snake, Board.find(2,2), :up)
       end
-      it 'ends ganem' do
+      it 'ends gane' do
         expect(@b).not_to receive(:update_square)
         @snake.move!
         expect(@snake.lost).to eq true
