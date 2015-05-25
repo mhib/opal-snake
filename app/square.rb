@@ -36,4 +36,12 @@ class Square
     @div.remove_class('food')
     @food = false
   end
+
+  def head!
+    @div.add_class('head')
+  end
+
+  def unhead!
+    @div.remove_class('head')
+  end
 end

@@ -43,7 +43,10 @@ module Board
   end
 
   def add_food!
-    random_square.food!
+    square = random_square
+    if square
+      square.food!
+    end
   end
 
   private

@@ -73,7 +73,7 @@ describe Square do
     end
   end
 
-  describe '#unfood' do
+  describe '#unfood!' do
     before do
       @square = Board.find(1, 2)
       @square.food!
@@ -87,6 +87,28 @@ describe Square do
     it 'sets @food to true' do
       @square.unfood!
       expect(@square.food).to eq false
+    end
+  end
+
+  describe '#head!' do
+    before do
+      @square = Board.find(1, 3)
+    end
+
+    it 'adds head to div' do
+      expect(@square.div).to receive(:add_class).with('head')
+      @square.head!
+    end
+  end
+
+  describe '#unhead!' do
+    before do
+      @square = Board.find(1, 3)
+    end
+
+    it 'adds head to div' do
+      expect(@square.div).to receive(:remove_class).with('head')
+      @square.unhead!
     end
   end
 end

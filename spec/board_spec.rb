@@ -1,21 +1,9 @@
 require 'spec_helper'
 
 describe Board do
-  #describe 'reset_snake_cache' do
-    #it 'generates cache' do
-      #Board.reset_snake_cache
-      #snake_cache = Board.snake_cache
-      #false_proc = -> n { n == false }
-      #expect(
-        #snake_cache.inject(0) { |m, i| m + i.count(&false_proc) }
-      #).to eq Board::SIZE ** 2
-    #end
-  #end
-
+  Board::SIZE = 5
+  html Views::FIVE
   describe 'generate' do
-    Board::SIZE = 5
-    html Views::FIVE
-
     before do
       Board.generate
     end
@@ -65,6 +53,26 @@ describe Board do
         expect(s.y).to eq 2
         expect(s.x).to eq 1
       end
+    end
+  end
+
+  describe 'random_square' do
+    before do
+      Board.generate
+    end
+    it 'selects random square' do
+      square = Board.random_square
+      expect(square.class).to eq Square
+    end
+  end
+
+  describe 'add_food!' do
+    before do
+      Board.generate
+    end
+    it 'adds food' do
+      Board.add_food!
+      expect(Element.find('.food').length).not_to eq 0
     end
   end
 end

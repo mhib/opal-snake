@@ -43,7 +43,7 @@ class Bone
       @old_square.remove_bone_class
     end
     if @head
-      change_head
+      change_head!
     end
   end
 
@@ -74,8 +74,8 @@ class Bone
 
   private
 
-  def change_head
-    @old_square.div.remove_class('head')
-    @square.div.add_class('head')
+  def change_head!
+    @old_square.unhead!
+    @square.head!
   end
 end

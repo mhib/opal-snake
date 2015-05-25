@@ -25,7 +25,6 @@ class Snake
     change = Change.new(head.square, direction)
     @changes << change
     @changes_cache[head.coords[:y]][head.coords[:x]] = change
-    puts "Added change direction: #{direction}"
   end
 
   def head

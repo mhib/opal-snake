@@ -92,7 +92,7 @@ describe Bone do
       end
     end
 
-    context '#move' do
+    describe '#move' do
       context 'normal move' do
         it 'moves' do
           square = @bone.square
@@ -141,7 +141,7 @@ describe Bone do
     end
   end
 
-  context '#update_square' do
+  describe '#update_square' do
     context 'head' do
       before do
         @bone.move
@@ -174,4 +174,20 @@ describe Bone do
       end
     end
   end
+
+  describe '#change_head!' do
+    before do
+      @square = double('square')
+      @s_square = double('square')
+      @bone.instance_variable_set(:@square, @square)
+      @bone.instance_variable_set(:@old_square, @s_square)
+    end
+
+    it 'changes square head' do
+      expect(@square).to receive(:head!).once
+      expect(@s_square).to receive(:unhead!).once
+      @bone.send(:change_head!)
+    end
+  end
+
 end
