@@ -1,0 +1,28 @@
+.row:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+.square {
+  border: 1px solid #cccccc;
+  width: 10px;
+  height: 10px;
+  float: left;
+  margin: 0; }
+
+#board-container {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0); }
+
+.bone {
+  background-color: black; }
+
+.head {
+  background-color: #FFD700 !important; }
+
+.food {
+  background-color: red; }
+
+/*# sourceMappingURL=main.css.map */
