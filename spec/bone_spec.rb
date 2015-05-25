@@ -102,17 +102,6 @@ describe Bone do
         end
       end
 
-      context 'out of board' do
-        before do
-          @bone.instance_variable_set(:@square, Board.find(1, 1))
-        end
-
-        it 'looses' do
-          @bone.move
-          expect(@snake.lost).to eq true
-        end
-      end
-
       context 'head eats tail' do
         before do
           # Yep snake is not in one piece
