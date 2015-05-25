@@ -13,15 +13,7 @@ class Snake
   end
 
   def add_change(direction)
-    if direction == head.direction
-      return
-    end
-    if direction == Board::OPPOSITE_DIRECTION[head.direction]
-      return
-    end
-    if @changes.last && @changes.last.square == head.square
-      return
-    end
+    return unless valid_direction?(direction)
     change = Change.new(head.square, direction)
     @changes << change
     @changes_cache[head.coords[:y]][head.coords[:x]] = change
@@ -69,5 +61,18 @@ class Snake
     @to_add = nil
     bone.check_for_changes
     Board.add_food!
+  end
+
+  def valid_direction?(direction)
+    if @changes.last && @changes.last.square == head.square
+      return false
+    end
+    if direction == head.direction
+      return false
+    end
+    if direction == Board::OPPOSITE_DIRECTION[head.direction]
+      return false
+    end
+    true
   end
 end
