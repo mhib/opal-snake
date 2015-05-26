@@ -3,6 +3,10 @@ $square-size: 10px;
 $square-border: 1px;
 $board-size: $squares * ($square-size + 2 * $square-border);
 
+body {
+  background-color: white;
+}
+
 .row:after {
   content: "";
   display: table;
