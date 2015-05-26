@@ -6,4 +6,5 @@ gem 'rake'
 gem 'guard'
 gem 'guard-rake'
 gem 'opal-browser'
-gem 'sass'
+gem 'sass', require: false
+gem 'uglifier'
