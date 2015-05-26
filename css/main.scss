@@ -1,3 +1,8 @@
+$squares: 50;
+$square-size: 10px;
+$square-border: 1px;
+$board-size: $squares * ($square-size + 2 * $square-border);
+
 .row:after {
   content: "";
   display: table;
@@ -5,9 +10,9 @@
 }
 
 .square {
-  border: 1px solid #cccccc;
-  width: 10px;
-  height: 10px;
+  border: $square-border solid #cccccc;
+  width: $square-size;
+  height: $square-size;
   float: left;
   margin: 0;
 }
@@ -17,6 +22,11 @@
   left: 50%;
   transform: translate(-50%, 0);
   -webkit-transform: translate(-50%, 0);
+}
+
+#board {
+  width: $board-size;
+  height: $board-size;
 }
 
 .bone {
