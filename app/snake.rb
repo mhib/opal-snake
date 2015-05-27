@@ -54,6 +54,10 @@ class Snake
     @to_add = { square: last.square, direction: last.direction }
   end
 
+  def won?
+    @bones.size == Board::NUMBER_OF_CELLS
+  end
+
   private
 
   def generate_bone

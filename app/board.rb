@@ -6,14 +6,16 @@ module Board
     down: :up
   }
   SIZE = 50
+  NUMBER_OF_CELLS = SIZE ** 2
+
   extend self
 
   def generate
     prepare_matrix
   end
 
-  def find(x, y = 0)
-    if Hash === x && y == 0
+  def find(x, y = nil)
+    if Hash === x && y == nil
       return find(x[:x], x[:y])
     end
     x = transform(x)

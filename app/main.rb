@@ -30,6 +30,9 @@ Document.ready? do
     snake.move!
     if snake.lost
       main_loop.abort
+    elsif snake.won?
+      alert "You won"
+      mail_loop.abort
     end
   end
 end
