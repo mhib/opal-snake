@@ -26,4 +26,8 @@ class Bone
       y: @square.y + dest[:y],
     }
   end
+
+  def head?
+    snake.head == self
+  end
 end
