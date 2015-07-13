@@ -1,57 +1,53 @@
 class Snake
-  attr_reader :bones, :lost, :changes, :changes_cache, :to_add
+  attr_reader :bones, :lost, :changes, :changes_cache, :to_add, :direction
   def initialize
     @bones = []
     @lost = false
     @changes = []
-    @changes_cache = Array.new(Board::SIZE + 1) { Array.new(Board::SIZE + 1, nil) }
     @to_add = nil
+    @direction = :right
   end
 
   def add_bone(bone)
-    @bones << bone
+    head.square.unhead! if head
+    @bones.unshift bone
+    head.square.head!
   end
 
-  def add_change(direction)
-    return unless valid_direction?(direction)
-    change = Change.new(head.square, direction)
-    @changes << change
-    @changes_cache[head.coords[:y]][head.coords[:x]] = change
+  def direction=(dir)
+    @direction = dir if valid_direction?(dir)
   end
 
   def head
     @bones.first
   end
 
-  def last
-    @bones.last
-  end
-
-  def remove_last_change
-    change = @changes.shift
-    @changes_cache[change.y][change.x] = nil
+  def pop_last
+    bone = @bones.pop
+    bone.square.remove_bone_class
   end
 
   def move!
-    @bones.each do |b|
-      b.move
-      return if @lost
+    eaten = false
+    new_square = Board.find(head.new_coords(@direction))
+
+    if new_square.snake?
+      return lose!
     end
-    @bones.each do |b|
-      b.update_square
+
+    if new_square.food
+      new_square.unfood!
+      eaten = true
+      Board.add_food!
     end
-    if @to_add
-      generate_bone
-    end
+
+    Bone.new(self, new_square)
+
+    pop_last unless eaten
   end
 
   def lose!
     @lost = true
-  end
-
-  def eat!(square)
-    square.unfood!
-    @to_add = { square: last.square, direction: last.direction }
   end
 
   def won?
@@ -60,21 +56,11 @@ class Snake
 
   private
 
-  def generate_bone
-    bone = Bone.new(self, @to_add[:square], @to_add[:direction])
-    @to_add = nil
-    bone.check_for_changes
-    Board.add_food!
-  end
-
-  def valid_direction?(direction)
-    if @changes.last && @changes.last.square == head.square
+  def valid_direction?(dir)
+    if dir == @direction
       return false
     end
-    if direction == head.direction
-      return false
-    end
-    if direction == Board::OPPOSITE_DIRECTION[head.direction]
+    if dir == Board::OPPOSITE_DIRECTION[@direction]
       return false
     end
     true
