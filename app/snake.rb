@@ -1,5 +1,5 @@
 class Snake
-  attr_reader :bones, :lost, :changes, :changes_cache, :to_add, :direction
+  attr_reader :bones, :lost, :direction
   def initialize
     @bones = []
     @lost = false
@@ -20,11 +20,6 @@ class Snake
 
   def head
     @bones.first
-  end
-
-  def pop_last
-    bone = @bones.pop
-    bone.square.remove_bone_class
   end
 
   def move!
@@ -55,6 +50,11 @@ class Snake
   end
 
   private
+
+  def pop_last
+    bone = @bones.pop
+    bone.square.remove_bone_class
+  end
 
   def valid_direction?(dir)
     if dir == @direction

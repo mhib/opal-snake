@@ -62,4 +62,39 @@ describe Snake do
       end
     end
   end
+
+  describe '#directon=' do
+    subject { Snake.new }
+
+    #
+    # snake have :right direction by default
+    #
+
+    context 'valid direction' do
+      it 'changes direction' do
+        subject.direction = :up
+        expect(subject.direction).to eq :up
+      end
+    end
+
+    context 'invalid direction' do
+      it 'does not change direction' do
+        subject.direction = :left
+        expect(subject.direction).not_to eq :left
+      end
+    end
+  end
+
+  describe '#pop_last' do
+    before do
+      @snake = Snake.new
+      Bone.new(@snake, Board.find(2,1))
+      Bone.new(@snake, Board.find(1,1))
+    end
+    it 'removes last bone' do
+      expect(@snake.bones.size).to eq 2
+      @snake.send :pop_last
+      expect(@snake.bones.size).to eq 1
+    end
+  end
 end
