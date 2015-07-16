@@ -43,10 +43,19 @@ class Snake
 
   def lose!
     @lost = true
+    check_if_record
   end
 
   def won?
     @bones.size == Board::NUMBER_OF_CELLS
+  end
+
+  def check_if_record
+    result = @bones.length
+    if (r = LocalStorage['record'].to_i) && r < result
+      alert "#{result} points!\nNew record!"
+      LocalStorage['record'] = result
+    end
   end
 
   private

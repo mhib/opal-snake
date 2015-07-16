@@ -32,6 +32,7 @@ Document.ready? do
       main_loop.abort
     elsif snake.won?
       alert "You won"
+      snake.check_if_record
       mail_loop.abort
     end
   end

@@ -1,5 +1,6 @@
 require 'opal'
 require 'opal-jquery'
+require 'opal/jquery/local_storage'
 require 'browser'
 require 'snake'
 require 'board'
