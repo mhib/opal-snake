@@ -8,25 +8,12 @@ Document.ready? do
   Bone.new(snake, Board.find(24, 20))
   Bone.new(snake, Board.find(25, 20))
   Document.on 'keydown' do |e|
-    case e.key_code.to_i
-    when 38
-      e.prevent_default
-      snake.direction = :up
-    when 40
-      e.prevent_default
-      snake.direction = :down
-    when 37
-      e.prevent_default
-      snake.direction = :left
-    when 39
-      e.prevent_default
-      snake.direction = :right
-    else
-    end
+    KeyboardHandler.handle(snake, e)
   end
   snake.move!
   Board.add_food!
   main_loop = every 0.1 do
+    next if Board.paused?
     snake.move!
     if snake.lost
       main_loop.abort

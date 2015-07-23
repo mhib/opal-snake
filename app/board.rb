@@ -51,6 +51,14 @@ module Board
     end
   end
 
+  def paused?
+    @paused ||= false
+  end
+
+  def toggle_pause!
+    @paused = !@paused
+  end
+
   private
 
   def prepare_matrix
