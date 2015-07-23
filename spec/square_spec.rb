@@ -24,35 +24,35 @@ describe Square do
     end
   end
 
-  describe '#add_bone_class' do
+  describe '#bone!' do
     before do
       @square = Board.find(1, 4)
     end
 
     it 'adds bone class to div' do
-      @square.add_bone_class
+      @square.bone!
       expect(@square.div.has_class?('bone')).to eq true
     end
 
     it 'sets @snake to true' do
-      @square.add_bone_class
+      @square.bone!
       expect(@square.snake).to eq true
     end
   end
 
-  describe '#remove_bone_class' do
+  describe '#unbone!' do
     before do
       @square = Board.find(1, 4)
-      @square.add_bone_class
+      @square.bone!
     end
 
     it 'removes bone class from div' do
-      @square.remove_bone_class
+      @square.unbone!
       expect(@square.div.has_class?('bone')).to eq false
     end
 
     it 'sets @snake to false' do
-      @square.remove_bone_class
+      @square.unbone!
       expect(@square.snake).to eq false
     end
   end
@@ -111,4 +111,5 @@ describe Square do
       @square.unhead!
     end
   end
+
 end

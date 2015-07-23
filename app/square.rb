@@ -9,20 +9,18 @@ class Square
     @food = false
   end
 
-  def snake?
-    @snake
-  end
+  alias_method :snake?, :snake
 
   def coords
     { x: x, y: y }
   end
 
-  def add_bone_class
+  def bone!
     @div.add_class('bone')
     @snake = true
   end
 
-  def remove_bone_class
+  def unbone!
     @div.remove_class('bone')
     @snake = false
   end

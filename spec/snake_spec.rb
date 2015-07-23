@@ -36,16 +36,39 @@ describe Snake do
 
   describe '#move!' do
     context 'no lost' do
-      before do
-        @b = Bone.new(@snake, Board.find(1,1))
-        @sb = Bone.new(@snake, Board.find(2,2))
-        @snake.direction = :up
+      context 'eat' do
+        html Views::FIVE
+        before do
+          Board.generate
+          @snake = Snake.new
+          @b = Bone.new(@snake, Board.find(1,1))
+          @sb = Bone.new(@snake, Board.find(2,1))
+          Board.find(3,1).food!
+        end
+
+        it 'moves and eats square' do
+          expect(@b.square).not_to receive(:unbone!)
+          @snake.move!
+          expect(@snake.lost).to eq false
+          expect(@snake.bones.size).to eq 3
+        end
       end
 
-      it 'sens messages to all bones' do
-        expect(@b.square).to receive(:remove_bone_class).once
-        @snake.move!
-        expect(@snake.lost).to eq false
+      context 'no eat' do
+        html Views::FIVE
+        before do
+          Board.generate
+          @snake = Snake.new
+          @b = Bone.new(@snake, Board.find(1,1))
+          @sb = Bone.new(@snake, Board.find(2,1))
+        end
+
+        it 'moves' do
+          expect(@b.square).to receive(:unbone!).once
+          @snake.move!
+          expect(@snake.lost).to eq false
+          expect(@snake.bones.size).to eq 2
+        end
       end
     end
 
@@ -63,7 +86,7 @@ describe Snake do
     end
   end
 
-  describe '#directon=' do
+  describe '#direction=' do
     subject { Snake.new }
 
     #
@@ -91,6 +114,7 @@ describe Snake do
       Bone.new(@snake, Board.find(2,1))
       Bone.new(@snake, Board.find(1,1))
     end
+
     it 'removes last bone' do
       expect(@snake.bones.size).to eq 2
       @snake.send :pop_last

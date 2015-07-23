@@ -7,9 +7,8 @@ class Snake
   end
 
   def add_bone(bone)
-    head.square.unhead! if head
+    head.unhead! if head
     @bones.unshift bone
-    head.square.head!
   end
 
   def direction=(dir)
@@ -27,8 +26,6 @@ class Snake
     if new_square.snake?
       return lose!
     end
-
-    new_square.add_bone_class
 
     if new_square.food
       new_square.unfood!
@@ -78,7 +75,7 @@ class Snake
 
   def pop_last
     bone = @bones.pop
-    bone.square.remove_bone_class
+    bone.square.unbone!
   end
 
   def valid_direction?(dir)

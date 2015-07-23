@@ -38,4 +38,41 @@ describe Bone do
     end
   end
 
+  describe '#head?' do
+    context 'head' do
+      before do
+        @snake = Snake.new
+        @bone = Bone.new(@snake, Board.find(2,2))
+      end
+
+      it 'is true' do
+        expect(@bone.head?).to eq true
+      end
+    end
+
+    context 'not head' do
+      before do
+        @snake = Snake.new
+        @bone = Bone.new(@snake, Board.find(2,2))
+        Bone.new(@snake, Board.find(3, 2))
+      end
+
+      it 'is false' do
+        expect(@bone.head?).to eq false
+      end
+    end
+  end
+
+  describe '#unhead!' do
+    before do
+      @snake = Snake.new
+      @bone = Bone.new(@snake, Board.find(2,2))
+    end
+
+    it 'sends unhead to square' do
+      expect(Board.find(2, 2)).to receive :unhead!
+      @bone.unhead!
+    end
+  end
+
 end

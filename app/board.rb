@@ -67,6 +67,11 @@ module Board
     @snake = something
   end
 
+  def refresh_food
+    food = Element.find('.food')
+    find(food.data('x').to_i, food.data('y').to_i).food!
+  end
+
   private
 
   def prepare_matrix

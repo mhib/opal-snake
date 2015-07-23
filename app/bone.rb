@@ -11,8 +11,9 @@ class Bone
   def initialize(snake, square)
     @snake = snake
     @square = square
-    @square.add_bone_class
+    @square.bone!
     @snake.add_bone(self)
+    @square.head!
   end
 
   def coords
@@ -29,5 +30,9 @@ class Bone
 
   def head?
     snake.head == self
+  end
+
+  def unhead!
+    square.unhead!
   end
 end
