@@ -26,14 +26,29 @@ module KeyboardHandler
     80 => true
   }
 
+  SAVE = {
+    122 => true
+  }
+
+  LOAD = {
+    123 => true
+  }
+
   module_function
 
   def handle(snake, e)
-    if (direction = MOVEMENTS[e.key_code.to_i])
+    kcode = e.key_code.to_i
+    if (direction = MOVEMENTS[kcode])
       Board.toggle_pause! if Board.paused?
       move_snake(snake, e, direction)
-    elsif PAUSE.key? e.key_code.to_i
+    elsif PAUSE.key? kcode
       Board.toggle_pause!
+    elsif SAVE.key? kcode
+      e.prevent_default
+      Saver.save(snake)
+    elsif LOAD.key? kcode
+      e.prevent_default
+      Saver.load(snake)
     end
   end
 

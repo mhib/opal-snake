@@ -3,8 +3,6 @@ class Snake
   def initialize
     @bones = []
     @lost = false
-    @changes = []
-    @to_add = nil
     @direction = :right
   end
 
@@ -24,11 +22,13 @@ class Snake
 
   def move!
     eaten = false
-    new_square = Board.find(head.new_coords(@direction))
+    new_square = Board.find(head.new_coords)
 
     if new_square.snake?
       return lose!
     end
+
+    new_square.add_bone_class
 
     if new_square.food
       new_square.unfood!
@@ -56,6 +56,24 @@ class Snake
       alert "#{result} points!\nNew record!"
       LocalStorage['record'] = result
     end
+  end
+
+  def serialize
+    {
+      bones: @bones.map(&:coords),
+      lost: @lost,
+      direction: @direction
+    }
+  end
+
+  def self.initialize_from_hash(hash)
+    inst = new
+    inst.instance_variable_set(:@lost, hash[:lost] == 'true')
+    inst.instance_variable_set(:@direction, hash[:direction].to_sym)
+    hash[:bones].reverse.map do |d|
+      Bone.new(inst, Board.find(d))
+    end
+    inst
   end
 
   private

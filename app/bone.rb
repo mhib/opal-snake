@@ -19,7 +19,7 @@ class Bone
     @square.coords
   end
 
-  def new_coords(direction)
+  def new_coords(direction = snake.direction)
     dest = MOVES[direction]
     {
       x: @square.x + dest[:x],

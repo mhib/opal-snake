@@ -59,6 +59,14 @@ module Board
     @paused = !@paused
   end
 
+  def snake
+    @snake
+  end
+
+  def snake=(something)
+    @snake = something
+  end
+
   private
 
   def prepare_matrix
