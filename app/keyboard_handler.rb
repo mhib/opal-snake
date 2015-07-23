@@ -48,7 +48,7 @@ module KeyboardHandler
       Saver.save(snake)
     elsif LOAD.key? kcode
       e.prevent_default
-      Saver.load(snake)
+      Saver.load
     end
   end
 

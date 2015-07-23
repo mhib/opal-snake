@@ -6,7 +6,7 @@ module Saver
     LocalStorage['save_board'] = Element.find('#board').html
   end
 
-  def load(snake)
+  def load
     if LocalStorage['save_snake'].empty? || LocalStorage['save_board'].empty?
       return
     end
@@ -17,5 +17,6 @@ module Saver
     Board.find(food.data('x').to_i, food.data('y').to_i).food!
     Board.snake = Snake.initialize_from_hash JSON.parse(LocalStorage['save_snake'])
     LocalStorage.delete('save_snake')
+    Board.toggle_pause!
   end
 end

@@ -1,9 +1,9 @@
 class Snake
   attr_reader :bones, :lost, :direction
-  def initialize
+  def initialize(direction = :right)
     @bones = []
     @lost = false
-    @direction = :right
+    @direction = direction
   end
 
   def add_bone(bone)
@@ -70,9 +70,7 @@ class Snake
     inst = new
     inst.instance_variable_set(:@lost, hash[:lost] == 'true')
     inst.instance_variable_set(:@direction, hash[:direction].to_sym)
-    hash[:bones].reverse.map do |d|
-      Bone.new(inst, Board.find(d))
-    end
+    hash[:bones].reverse_each { |d| Bone.new(inst, Board.find(d)) }
     inst
   end
 
