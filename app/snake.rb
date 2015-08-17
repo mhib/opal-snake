@@ -23,19 +23,17 @@ class Snake
     eaten = false
     new_square = Board.find(head.new_coords)
 
-    if new_square.snake?
-      return lose!
-    end
-
     if new_square.food
       new_square.unfood!
       eaten = true
       Board.add_food!
     end
-
-    Bone.new(self, new_square)
-
     pop_last unless eaten
+
+    if new_square.snake?
+      return lose!
+    end
+    Bone.new(self, new_square)
   end
 
   def lose!

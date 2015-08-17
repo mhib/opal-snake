@@ -18,7 +18,7 @@ describe Snake do
 
   context '#add_bone' do
     it 'adds bone' do
-      b = Bone.new(Snake.new, Board.find(2, 2), :up)
+      b = Bone.new(Snake.new, Board.find(2, 2))
       b.instance_variable_set(:@snake, @snake)
       expect(@snake.bones.size).to eq 0
       @snake.add_bone(b)
