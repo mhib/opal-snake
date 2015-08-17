@@ -74,9 +74,7 @@ describe Snake do
 
     context 'lost' do
       before do
-        @b = Bone.new(@snake, Board.find(2,2))
-        @sb = Bone.new(@snake, Board.find(2,3))
-        @snake.direction = :up
+        3.downto(1) { |n| Bone.new @snake, Board.find(n, 1) }
       end
 
       it 'ends gane' do
