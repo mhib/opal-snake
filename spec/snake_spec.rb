@@ -88,7 +88,7 @@ describe Snake do
     subject { Snake.new }
 
     #
-    # snake have :right direction by default
+    # snake has :right direction by default
     #
 
     context 'valid direction' do
